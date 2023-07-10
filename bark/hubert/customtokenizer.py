@@ -118,7 +118,10 @@ class CustomTokenizer(nn.Module):
             model = CustomTokenizer()
         else:
             model = CustomTokenizer(data_from_model.hidden_size, data_from_model.input_size, data_from_model.output_size, data_from_model.version)
-        model.load_state_dict(torch.load(path))
+        if torch.cuda.is_available() == False:
+            model.load_state_dict(torch.load(path,map_location=torch.device('cpu')))
+        else:
+            model.load_state_dict(torch.load(path))
         if map_location:
             model = model.to(map_location)
         return model

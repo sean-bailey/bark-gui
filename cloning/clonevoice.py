@@ -14,7 +14,7 @@ def clone_voice(audio_filepath, tokenizer_lang, dest_filename, progress=gradio.P
     # if len(text) < 1:
     #    raise gradio.Error('No transcription text entered!')
 
-    use_gpu = not os.environ.get("BARK_FORCE_CPU", False)
+    use_gpu = not os.environ.get("BARK_FORCE_CPU", False) #this is terribly convoluted. 
     progress(0, desc="Loading Codec")
     model = load_codec_model(use_gpu=use_gpu)
     
