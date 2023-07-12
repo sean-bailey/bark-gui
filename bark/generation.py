@@ -91,7 +91,7 @@ CUR_PATH = os.path.dirname(os.path.abspath(__file__))
 #default_cache_dir = os.path.join(os.path.expanduser("~"), ".cache")
 #CACHE_DIR = os.path.join(os.getenv("XDG_CACHE_HOME", default_cache_dir), "suno", "bark_v0")
 #CACHE_DIR = os.path.join(os.getcwd(), "models"
-CACHE_DIR = os.environ.get("CACHEDIR") or "./models"
+CACHE_DIR = os.environ.get("CACHE_DIR") or "./models"
 
 
 def _cast_bool_env_var(s):
@@ -231,7 +231,7 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
     model_key = f"{model_type}_small" if use_small or USE_SMALL_MODELS else model_type
     model_info = REMOTE_MODEL_PATHS[model_key]
     if not os.path.exists(ckpt_path):
-        logger.info(f"{model_type} model not found, downloading into `{CACHE_DIR}`.")
+        print(f"{model_type} model not found, downloading into `{CACHE_DIR}`.")
         ## added next two lines to make it super clear which model is being downloaded
         remote_filename = hf_hub_url(model_info["repo_id"], model_info["file_name"])
         print(f"Downloading {model_key} {model_info['repo_id']} remote model file {remote_filename} {model_info['file_name']} to {CACHE_DIR}")
@@ -390,6 +390,8 @@ def _load_history_prompt(history_prompt_input):
         history_prompt_input = os.path.join(*history_prompt_input.split("/"))
 #        if history_prompt_input not in ALLOWED_PROMPTS:
 #            raise ValueError("history prompt not found")
+        #this is going to need to be modified... We don't need the current path. It's not going to be found here. We have to
+        #assume the prompt is going to be shared directly with us.
         history_prompt = np.load(
             os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt_input}.npz")
         )
