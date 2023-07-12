@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="bark_enhanced",
-    version="0.1.0a",
+    version="0.1.0b",
     description="Bark text to audio model with focus around a serverless deployment model",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
