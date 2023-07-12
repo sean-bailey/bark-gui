@@ -14,7 +14,7 @@ from bark.api import semantic_to_waveform
 from bark import text_to_semantic
 from bark.generation import load_model
 
-from training.data import load_books, random_split_chunk
+from bark.training.data import load_books, random_split_chunk
 
 output = 'training/data/output'
 output_wav = 'training/data/output_wav'
