@@ -3,9 +3,9 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bark-ui-enhanced"
-version = "0.7.0"
-description = "Bark text to audio model with addition features and a Web UI"
+name = "bark_enhanced"
+version = "0.1.0"
+description = "Bark text to audio model with focus around a serverless deployment model"
 readme = "README.md"
 requires-python = ">=3.8"
 authors =  [
@@ -29,7 +29,7 @@ dependencies = [
 ]
 
 [project.urls]
-source = "https://github.com/C0untFloyd/bark-gui"
+source = "https://github.com/sean-bailey/bark-gui"
 
 [project.optional-dependencies]
 dev = [
@@ -51,9 +51,6 @@ dev = [
 
 [tool.setuptools]
 packages = ["bark"]
-
-[tool.setuptools.package-data]
-bark = ["assets/prompts/*.npz", "assets/prompts/v2/*.npz"]
 
 
 [tool.black]
