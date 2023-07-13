@@ -330,13 +330,13 @@ def load_codec_model(use_gpu=True, force_reload=False):
 
 
 def preload_models(
-    text_use_gpu=True,
-    text_use_small=False,
-    coarse_use_gpu=True,
-    coarse_use_small=False,
-    fine_use_gpu=True,
-    fine_use_small=False,
-    codec_use_gpu=True,
+    text_use_gpu=False,
+    text_use_small=True,
+    coarse_use_gpu=False,
+    coarse_use_small=True,
+    fine_use_gpu=False,
+    fine_use_small=True,
+    codec_use_gpu=False,
     force_reload=False
 ):
     """Load all the necessary models for the pipeline."""
