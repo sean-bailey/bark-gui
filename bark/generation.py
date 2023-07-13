@@ -92,12 +92,13 @@ CUR_PATH = os.path.dirname(os.path.abspath(__file__))
 #CACHE_DIR = os.path.join(os.getenv("XDG_CACHE_HOME", default_cache_dir), "suno", "bark_v0")
 #CACHE_DIR = os.path.join(os.getcwd(), "models"
 CACHE_DIR = os.environ.get("CACHE_DIR")# or "./models"
+print(CACHE_DIR)
 
 
 def _cast_bool_env_var(s):
     return s.lower() in ('true', '1', 't')
 
-USE_SMALL_MODELS = _cast_bool_env_var(os.environ.get("SUNO_USE_SMALL_MODELS", "False"))
+USE_SMALL_MODELS = _cast_bool_env_var(os.environ.get("SUNO_USE_SMALL_MODELS", "True"))
 GLOBAL_ENABLE_MPS = _cast_bool_env_var(os.environ.get("SUNO_ENABLE_MPS", "False"))
 OFFLOAD_CPU = _cast_bool_env_var(os.environ.get("SUNO_OFFLOAD_CPU", "False"))
 
@@ -130,7 +131,7 @@ REMOTE_MODEL_PATHS = {
 
 
 if not hasattr(torch.nn.functional, 'scaled_dot_product_attention') and torch.cuda.is_available():
-    logger.warning(
+    print(
         "torch version does not support flash attention. You will get faster" +
         " inference speed by upgrade torch to newest nightly version."
     )
@@ -143,6 +144,7 @@ def grab_best_device(use_gpu=True):
         device = "mps"
     else:
         device = "cpu"
+    print("Grab best device: "+str(device))
     return device
 
 
@@ -343,7 +345,7 @@ def preload_models(
     if grab_best_device() == "cpu" and (
         text_use_gpu or coarse_use_gpu or fine_use_gpu or codec_use_gpu
     ):
-        logger.warning("No GPU being used. Careful, inference might be very slow!")
+        print("No GPU being used. Careful, inference might be very slow!")
     _ = load_model(
         model_type="text", use_gpu=text_use_gpu, use_small=text_use_small, force_reload=force_reload
     )
