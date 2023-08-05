@@ -5,6 +5,8 @@ import re
 import requests
 import gc
 import sys
+from pathlib import Path
+
 
 from encodec import EncodecModel
 import funcy
@@ -287,7 +289,7 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
 def _load_codec_model(device):
 
     if ENCODECMODELS is not None:
-        model = EncodecModel.encodec_model_24khz(repository=ENCODECMODELS)
+        model = EncodecModel.encodec_model_24khz(repository=Path(ENCODECMODELS))
     else:
         model = EncodecModel.encodec_model_24khz()
     model.set_target_bandwidth(6.0)
