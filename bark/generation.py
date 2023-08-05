@@ -92,6 +92,7 @@ CUR_PATH = os.path.dirname(os.path.abspath(__file__))
 #CACHE_DIR = os.path.join(os.getenv("XDG_CACHE_HOME", default_cache_dir), "suno", "bark_v0")
 #CACHE_DIR = os.path.join(os.getcwd(), "models"
 CACHE_DIR = os.environ.get("CACHE_DIR")# or "./models"
+BERT_DOWNLOAD=os.environ.get("BERT_DOWNLOAD") #This is going to be the location of the 
 print(CACHE_DIR)
 
 
@@ -272,7 +273,10 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
     del checkpoint, state_dict
     _clear_cuda_cache()
     if model_type == "text":
-        tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
+        if BERT_DOWNLOAD is not None:
+            tokenizer = BertTokenizer.from_pretrained(BERT_DOWNLOAD,local_files_only=True)
+        else:
+            tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
         return {
             "model": model,
             "tokenizer": tokenizer,
