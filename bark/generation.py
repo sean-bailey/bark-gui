@@ -50,7 +50,7 @@ CONTEXT_WINDOW_SIZE = 1024
 
 SEMANTIC_RATE_HZ = 49.9
 SEMANTIC_VOCAB_SIZE = 10_000
-
+ENCODECMODELS=os.environ.get("ENCODECMODELS")
 CODEBOOK_SIZE = 1024
 N_COARSE_CODEBOOKS = 2
 N_FINE_CODEBOOKS = 8
@@ -285,7 +285,11 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
 
 
 def _load_codec_model(device):
-    model = EncodecModel.encodec_model_24khz()
+
+    if ENCODECMODELS is not None:
+        model = EncodecModel.encodec_model_24khz(repository=ENCODECMODELS)
+    else:
+        model = EncodecModel.encodec_model_24khz()
     model.set_target_bandwidth(6.0)
     model.eval()
     model.to(device)
